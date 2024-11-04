@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linear Equations</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc; /* Beige background */
+            color: #333333; /* Dark gray text */
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        /* Header and Title */
+        header {
+            background-color: #333333; /* Dark gray background */
+            width: 100%;
+            padding: 1em 0;
+            text-align: center;
+            border-bottom: 3px solid #d9cbb6; /* Light beige border */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+    
+        h1 {
+            font-size: 2.5em;
+            color: #f5f5dc; /* Beige title */
+            margin: 0;
+        }
+    
+        /* Tab Styling */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1px;
+            background-color: #444444; /* Slightly lighter dark gray */
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            color: #f5f5dc; /* Beige text */
+            transition: background-color 0.3s;
+            background-color: #333333;
+        }
+    
+        .tab:hover {
+            background-color: #d9cbb6; /* Light beige hover */
+            color: #333333;
+        }
+    
+        /* Container for Questions and Code Output */
+        .container {
+            display: flex;
+            width: 90%;
+            max-width: 1200px;
+            gap: 20px;
+            margin-top: 20px;
+        }
+    
+        /* Styling for Questions List */
+        .questions {
+            flex: 1;
+            background-color: #333333;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border: 2px solid #d9cbb6;
+        }
+    
+        .questions h2 {
+            color: #f5f5dc;
+            margin-bottom: 15px;
+        }
+    
+        .questions ol {
+            list-style: none;
+            padding-left: 0;
+        }
+    
+        .questions li {
+            font-size: 1.1em;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(217, 203, 182, 0.5); /* Soft beige accent */
+            cursor: pointer;
+            color: #d9cbb6;
+        }
+    
+        .questions li:hover {
+            color: #f5f5dc;
+            font-weight: bold;
+        }
+    
+        /* Code and Output Frame Styling */
+        .code-output {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+            gap: 15px;
+        }
+    
+        .code-frame, .output-frame {
+            background-color: #333333;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #d9cbb6;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+    
+        .code-frame h2, .output-frame h2 {
+            color: #f5f5dc;
+            margin: 0;
+        }
+    
+        textarea {
+            width: 100%;
+            height: 200px;
+            background-color: #444444;
+            color: #f5f5dc;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            resize: none;
+            font-family: 'Courier New', Courier, monospace;
+            outline: none;
+            box-sizing: border-box;
+        }
+    
+        /* Footer */
+        footer {
+            background-color: #333333;
+            color: #f5f5dc;
+            width: 100%;
+            text-align: center;
+            padding: 1em 0;
+            margin-top: 20px;
+            border-top: 2px solid #d9cbb6;
+        }
+    </style>
+    
+</head>
+<body>
+    <header>
+        <h1>Linear Equations</h1>
+        <div class="tabs">
+            <div class="tab" onclick="location.href='conversion.html'">Conversion</div>
+            <div class="tab" onclick="location.href='NonLinearEquations.html'">Non-Linear Equations</div>
+            <div class="tab" onclick="location.href='LinearEquations.html'">Linear Equations</div>
+            <div class="tab" onclick="location.href='Interpolation.html'">Interpolation</div>
+            <div class="tab" onclick="location.href='NumericalIntegration.html'">Numerical Integration</div>
+            <div class="tab" onclick="location.href='Approximation.html'">Approximation</div>
+            <div class="tab" onclick="location.href='OrdinaryDifferentialEquations.html'">Ordinary Differential Equations</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="questions">
+            <h2>Questions</h2>
+            <ol>
+                <li onclick="toggleCode(0)">1. WAP to demonstrate Gauss Elimination Method</li>
+                <li onclick="toggleCode(1)">2. WAP to demonstrate Gauss Jordan Method</li>
+                <li onclick="toggleCode(2)">3. WAP to demonstrate Gauss Siedal Method</li>
+                 </ol>
+        </div>
+
+        <div class="code-output" id="code-output-0">
+            <div class="code-frame">
+                <h2>1. Code</h2>
+                <textarea readonly>
+//1. WAP to demonstrate Gauss Elimination Method
+#include<stdio.h>
+    int main()
+    {
+        float m[3][4], y[3], fact;
+        int i, j, k;
+    
+        printf("Enter the coefficients of the matrix :\n");  //3x4 matrix with 3 values of x,y,z
+        for (i = 0; i < 3; i++)
+        {
+            for (j = 0; j < 4; j++)
+            {
+                scanf("%f", &m[i][j]);
+            }
+        }
+    
+        for (i = 0; i < 2; i++)  //Gauss Elimination
+        {
+            for (j = i + 1; j < 3; j++) 
+            {
+                fact = m[j][i] / m[i][i];
+                for (k = i; k < 4; k++) 
+                {
+                    m[j][k] = m[j][k] - fact * m[i][k];
+                }
+            }
+        }
+    
+        y[2] = m[2][3] / m[2][2]; // Back Substitution
+        y[1] = (m[1][3] - m[1][2] * y[2]) / m[1][1];
+        y[0] = (m[0][3] - m[0][2] * y[2] - m[0][1] * y[1]) / m[0][0];
+    
+        printf("Output:\n");
+        for (i = 0; i < 3; i++) 
+        {
+            printf("y%d = %.2f\n", i + 1, y[i]);
+        }
+    
+        return 0;
+    }
+             
+   </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+<textarea readonly>
+    Enter the coefficients of the matrix :
+    1 1 1 9
+    2 5 7 52
+    2 1 -1 0
+    Output:
+    y1 = 1.00
+    y2 = 3.00
+    y3 = 5.00                              
+</textarea>
+            </div>
+        </div>
+        <div class="code-output" id="code-output-0">
+            <div class="code-frame">
+                <h2>2. Code</h2>
+                <textarea readonly>
+//2. WAP to demonstrate Gauss-Jordan Method
+#include<stdio.h>
+
+    int main()
+    {
+        float mat[3][4]; // Augmented matrix for 3 variables
+        int i, j, k;
+        float r; //ratio
+    
+        printf("Enter the coefficients of the matrix :\n");
+        for (i = 0; i < 3; i++) 
+        {
+            for (j = 0; j < 4; j++)
+            {
+                scanf("%f", &mat[i][j]);
+            }
+        }
+    
+        // Gauss-Jordan Elimination
+        for (i = 0; i < 3; i++) 
+        {
+            // Make the diagonal element 1
+            r = mat[i][i];  //// Get the diagonal element (mat[0][0], mat[1][1], mat[2][2])
+            for (j = 0; j < 4; j++)
+            {
+                mat[i][j] = mat[i][j] / r; //00=00+00
+            }
+    
+            // Make the other elements in the current column 0
+            for (k = 0; k < 3; k++) 
+            {
+                if (k != i)
+                {
+                    r = mat[k][i];// Get the element in the same column but different row
+                    for (j = 0; j < 4; j++)
+                    {
+                        mat[k][j] = mat[k][j] - (r * mat[i][j]);// Subtract (r * current row) from the k-th row
+                    }
+                }
+            }
+        }
+    
+        printf("Output:\n");
+        for (i = 0; i < 3; i++) 
+        {
+            printf("y%d = %.2f\n", i + 1, mat[i][3]);//output -solution of each variable stored
+        }
+    
+        return 0;
+    }
+           
+   </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+ <textarea readonly>
+    Enter the coefficients of the matrix :
+    2 1 1 10
+    3 2 3 18
+    1 4 9 19
+    Output:
+    y1 = 5.50
+    y2 = -4.50
+    y3 = 3.50                                               
+</textarea>
+            </div>
+        </div>
+        <div class="code-output" id="code-output-0">
+            <div class="code-frame">
+                <h2>3. Code</h2>
+                <textarea readonly>
+//3. WAP to demonstrate Gauss-Siedal Method
+#include <stdio.h>
+    #include <math.h>
+    // Function to input the coefficients and constants
+    void inputMatrix(float a[3][3], float b[3])
+    {
+        printf("Enter the coefficients of the matrix (3x3):\n");
+        for (int i = 0; i < 3; i++) 
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                scanf("%f", &a[i][j]);
+            }
+        }
+        printf("Enter the constants (3 values):\n");
+        for (int i = 0; i < 3; i++)
+        {
+            scanf("%f", &b[i]);
+        }
+    }
+    
+    // Functions to compute the new values of x, y, z
+    float f1(float x0, float y0, float z0, float a[3][3], float b[3]) {
+        return (b[0] - a[0][1] * y0 - a[0][2] * z0) / a[0][0];
+    }
+    
+    float f2(float x1, float y0, float z0, float a[3][3], float b[3]) {
+        return (b[1] - a[1][0] * x1 - a[1][2] * z0) / a[1][1];
+    }
+    
+    float f3(float x1, float y1, float z0, float a[3][3], float b[3]) {
+        return (b[2] - a[2][0] * x1 - a[2][1] * y1) / a[2][2];
+    }
+    
+    int main() 
+    {
+        float a[3][3], b[3]; // Coefficients matrix and constants
+        float x0 = 0, y0 = 0, z0 = 0; // Initial guesses
+        float x1, y1, z1; // Updated values
+        float e, e1, e2, e3; // Tolerable error and errors
+        int count = 1; // Iteration counter
+    
+        // Input matrix and constants
+        inputMatrix(a, b);
+    
+        // Input tolerable error
+        printf("Enter tolerable error:\n");
+        scanf("%f", &e);
+    
+        printf("\nCount\tx\ty\tz\n");
+    
+         do {
+            // Calculation
+            x1 = f1(x0, y0, z0, a, b);
+            y1 = f2(x1, y0, z0, a, b);
+            z1 = f3(x1, y1, z0, a, b);
+            
+            printf("%d\t%0.4f\t%0.4f\t%0.4f\n", count, x1, y1, z1);
+    
+            // Error calculation
+            e1 = fabs(x0 - x1);
+            e2 = fabs(y0 - y1);
+            e3 = fabs(z0 - z1);
+    
+            // Update values for next iteration
+            x0 = x1;
+            y0 = y1;
+            z0 = z1;
+    
+            count++;
+    
+        } while (e1 > e && e2 > e && e3 > e);
+    
+        printf("\nSolution: x = %0.3f, y = %0.3f, z = %0.3f\n", x1, y1, z1);
+    
+        return 0;
+    }
+          
+   </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+<textarea readonly>
+    Enter the coefficients of the matrix (3x3):
+    9 2 4
+    1 10 4
+    2 -4 10
+    Enter the constants (3 values):
+    20 6 -15
+    Enter tolerable error:
+    0.0001
+    
+    Count   x       y       z
+    1       2.2222  0.3778  -1.7933
+    2       2.9353  1.0238  -1.6775
+    3       2.7403  0.9970  -1.6493
+    4       2.7337  0.9863  -1.6522
+    5       2.7373  0.9871  -1.6526
+    6       2.7374  0.9873  -1.6525
+    
+    Solution: x = 2.737, y = 0.987, z = -1.653
+    
+</textarea>
+            </div>
+        </div>
+</div>
+
+    </div>
+    <footer>
+        <p>&copy; 2024 My Stylish Website. All rights reserved.</p>
+        <a href="index.html">Back to Home</a>
+    </footer>
+
+
+    </div>
+
+    <script>
+        function toggleCode(index) {
+            const codeSections = document.querySelectorAll('.code-output');
+            codeSections.forEach((section, idx) => {
+                section.style.display = idx === index ? 'flex' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>

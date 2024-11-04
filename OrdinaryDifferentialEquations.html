@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordinary Differential Equations</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc; /* Beige background */
+            color: #333333; /* Dark gray text */
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        /* Header and Title */
+        header {
+            background-color: #333333; /* Dark gray background */
+            width: 100%;
+            padding: 1em 0;
+            text-align: center;
+            border-bottom: 3px solid #d9cbb6; /* Light beige border */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+    
+        h1 {
+            font-size: 2.5em;
+            color: #f5f5dc; /* Beige title */
+            margin: 0;
+        }
+    
+        /* Tab Styling */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1px;
+            background-color: #444444; /* Slightly lighter dark gray */
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            color: #f5f5dc; /* Beige text */
+            transition: background-color 0.3s;
+            background-color: #333333;
+        }
+    
+        .tab:hover {
+            background-color: #d9cbb6; /* Light beige hover */
+            color: #333333;
+        }
+    
+        /* Container for Questions and Code Output */
+        .container {
+            display: flex;
+            width: 90%;
+            max-width: 1200px;
+            gap: 20px;
+            margin-top: 20px;
+        }
+    
+        /* Styling for Questions List */
+        .questions {
+            flex: 1;
+            background-color: #333333;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border: 2px solid #d9cbb6;
+        }
+    
+        .questions h2 {
+            color: #f5f5dc;
+            margin-bottom: 15px;
+        }
+    
+        .questions ol {
+            list-style: none;
+            padding-left: 0;
+        }
+    
+        .questions li {
+            font-size: 1.1em;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(217, 203, 182, 0.5); /* Soft beige accent */
+            cursor: pointer;
+            color: #d9cbb6;
+        }
+    
+        .questions li:hover {
+            color: #f5f5dc;
+            font-weight: bold;
+        }
+    
+        /* Code and Output Frame Styling */
+        .code-output {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+            gap: 15px;
+        }
+    
+        .code-frame, .output-frame {
+            background-color: #333333;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #d9cbb6;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+    
+        .code-frame h2, .output-frame h2 {
+            color: #f5f5dc;
+            margin: 0;
+        }
+    
+        textarea {
+            width: 100%;
+            height: 200px;
+            background-color: #444444;
+            color: #f5f5dc;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            resize: none;
+            font-family: 'Courier New', Courier, monospace;
+            outline: none;
+            box-sizing: border-box;
+        }
+    
+        /* Footer */
+        footer {
+            background-color: #333333;
+            color: #f5f5dc;
+            width: 100%;
+            text-align: center;
+            padding: 1em 0;
+            margin-top: 20px;
+            border-top: 2px solid #d9cbb6;
+        }
+    </style>
+    
+</head>
+<body>
+    <header>
+        <h1>Ordinary Differential Equations</h1>
+        <div class="tabs">
+            <div class="tab" onclick="location.href='conversion.html'">Conversion</div>
+            <div class="tab" onclick="location.href='NonLinearEquations.html'">Non-Linear Equations</div>
+            <div class="tab" onclick="location.href='LinearEquations.html'">Linear Equations</div>
+            <div class="tab" onclick="location.href='Interpolation.html'">Interpolation</div>
+            <div class="tab" onclick="location.href='NumericalIntegration.html'">Numerical Integration</div>
+            <div class="tab" onclick="location.href='Approximation.html'">Approximation</div>
+            <div class="tab" onclick="location.href='OrdinaryDifferentialEquations.html'">Ordinary Differential Equations</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="questions">
+            <h2>Questions</h2>
+            <ol>
+                <li onclick="toggleCode(0)">1. WAP to demonstrate Euler Method</li>
+                <li onclick="toggleCode(1)">2. WAP to demonstrate Modified Euler Method</li>
+                <li onclick="toggleCode(2)">3. WAP to demonstrate Runga-Kutta 2nd Order</li>
+                <li onclick="toggleCode(3)">4. WAP to demonstrate Runga-Kutta 4th Order</li>
+            </ol>
+        </div>
+
+        <!-- Code outputs for each question -->
+        <div class="code-output" id="code-output-0">
+            <div class="code-frame">
+                <h2>1. Code</h2>
+<textarea readonly>
+//1. WAP to demonstrate Euler Method
+#include<stdio.h>
+    float fun(float x,float y)
+    {
+        float f;
+        f=x+y;
+        return f;
+    }
+    void main()
+    {
+        float a,b,x,y,h,t,k;
+        printf("\nEnter x0: ");
+        scanf("%f",&a);
+        printf("Enter y0: ");
+        scanf("%f",&b);
+        printf("Enter h: ");
+        scanf("%f",&h);
+        printf("Enter xn: ");
+        scanf("%f",&t);
+        x=a;
+        y=b;
+        printf("\n  x\t\t  y\n");
+        while(x<=t)
+        {
+            k=h*fun(x,y);
+            y=y+k;
+            x=x+h;
+            printf("%0.3f\t%0.3f\n",x,y);
+        }
+    }
+             
+</textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+<textarea readonly>
+    Enter x0: 0
+    Enter y0: 2
+    Enter h: 0.05
+    Enter xn: 0.2
+    
+      x       y
+    0.050   2.100
+    0.100   2.207
+    0.150   2.323
+    0.200   2.447
+    0.250   2.579   
+</textarea>
+            </div>
+        </div>
+        <div class="code-output" id="code-output-0">
+            <div class="code-frame">
+                <h2>2. Code</h2>
+<textarea readonly>
+//2. WAP to demonstrate Modified Euler Method
+#include<stdio.h>
+#include<math.h>
+    float fun(float,float);
+    
+    void main()
+    {
+        int i,j,c;
+        float x[100],y[100],h,m[100],m1,m2,a,s[100],w;
+    
+        printf("Enter the initial value of x:");
+        scanf("%f",&x[0]);
+        printf("\nEnter the value of increment h:");
+        scanf("%f",&h);
+        printf("\nEnter the final value of x:");
+        scanf("%f",&a);
+        printf("\nEnter the initial value of the variable y :");
+        scanf("%f",&y[0]);
+        s[0]=y[0];
+        for(i=1;x[i-1]<a;i++)
+        {
+            w=100.0;
+            x[i]= x[i-1]+h;
+            m[i]=fun(x[i-1],y[i-1]);
+            c=0;
+            while(w>0.0001)
+            {
+                m1=fun(x[i],s[c]);
+                m2=(m[i]+m1)/2;
+                s[c+1]=y[i-1]+m2*h;
+                w=s[c]-s[c+1];
+                w=fabs(w);
+                c=c+1;
+            }
+             y[i]=s[c];
+        }
+        printf("\n\nThe respective values of x and y are\n     x  \t     y\n\n");
+        for(j=0;j<i;j++)
+        {
+            printf("  %f\t%f",x[j],y[j]);
+            printf("\n");
+        }
+    }
+    
+    float fun(float a,float b)
+    {
+        float c;
+        c=a*a+b;
+        return(c);
+    }
+         
+</textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+<textarea readonly>
+    Enter the initial value of x:0
+
+    Enter the value of increment h:0.4
+    
+    Enter the final value of x:0.8
+    
+    Enter the initial value of the variable y :2
+    
+    
+    The respective values of x and y are
+         x               y
+    
+      0.000000      2.000000
+      0.400000      3.039987
+      0.800000      4.759973     
+</textarea>
+            </div>
+        </div>
+        <div class="code-output" id="code-output-0">
+            <div class="code-frame">
+                <h2>3. Code</h2>
+<textarea readonly>
+//3.WAP to demonstrate Runga-Kutta 2nd Order
+#include <stdio.h>
+
+    double f(double x, double y) {
+        return x+y; // Example: dy/dx = x + y
+    }
+    
+    void rungeKutta2(double x0, double y0, double x, double h) {
+        double k1, k2;
+    
+        printf("\nResults:\n");
+        printf("x\t\ty\n");
+        printf("-------------------\n");
+        
+        while (x0 < x) {
+          
+            k1 = h * f(x0, y0);
+            k2 = h * f(x0 + h, y0 + k1);
+            
+            y0 = y0 + 0.5 * (k1 + k2);
+            x0 = x0 + h;
+    
+        
+            printf("%.2lf\t%.6lf\n", x0, y0);
+        }
+    }
+    
+    int main() {
+        double x0, y0, x, h;
+    
+        printf("Runge-Kutta 2nd Order Method\n");
+        printf("----------------------------------\n");
+    
+        printf("Enter the initial value of x (x0): ");
+        scanf("%lf", &x0);
+        
+        printf("Enter the initial value of y (y0): ");
+        scanf("%lf", &y0);
+        
+        printf("Enter the value of x at which to evaluate y (x): ");
+        scanf("%lf", &x);
+        
+        printf("Enter the step size (h): ");
+        scanf("%lf", &h);
+    
+        rungeKutta2(x0, y0, x, h);
+        
+    }
+       
+</textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+<textarea readonly>
+    Runge-Kutta 2nd Order Method
+    -----------------------------
+    Enter the initial value of x (x0): 0
+    Enter the initial value of y (y0): 0
+    Enter the value of x at which to evaluate y (x): 0.2
+    Enter the step size (h): 0.1
+    
+    Results:
+     x            y
+    -------------------
+    0.10    0.005000
+    0.20    0.021025
+</textarea>
+            </div>
+        </div>    
+        <div class="code-output" id="code-output-0">
+            <div class="code-frame">
+                <h2>4. Code</h2>
+<textarea readonly>
+//4.WAP to demonstrate Runga-Kutta 4th Order
+#include <stdio.h>
+
+    double f(double x, double y) {
+        return x + y; // Example: dy/dx = x + y
+    }
+    
+    void rungeKutta4(double x0, double y0, double x, double h) {
+        double k1, k2, k3, k4;
+    
+        printf("\nResults:\n");
+        printf("x\t\ty\n");
+        printf("-------------------\n");
+        
+        while (x0 < x) {
+      
+            k1 = h * f(x0, y0);
+            k2 = h * f(x0 + h / 2, y0 + k1 / 2);
+            k3 = h * f(x0 + h / 2, y0 + k2 / 2);
+            k4 = h * f(x0 + h, y0 + k3);
+    
+            y0 = y0 + (k1 + 2 * k2 + 2 * k3 + k4) / 6;
+            x0 = x0 + h;
+    
+            printf("%.2lf\t%.6lf\n", x0, y0);
+        }
+    }
+    
+    int main() {
+        double x0, y0, x, h;
+    
+        printf("Runge-Kutta 4th Order Method\n");
+        printf("---------------------------------\n");
+    
+        printf("Enter the initial value of x (x0): ");
+        scanf("%lf", &x0);
+        
+        printf("Enter the initial value of y (y0): ");
+        scanf("%lf", &y0);
+        
+        printf("Enter the value of x at which to evaluate y (x): ");
+        scanf("%lf", &x);
+        
+        printf("Enter the step size (h): ");
+        scanf("%lf", &h);
+        rungeKutta4(x0, y0, x, h);
+        
+    }
+</textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+<textarea readonly>
+    Runge-Kutta 4th Order Method
+    ------------------------------
+    Enter the initial value of x (x0): 0
+    Enter the initial value of y (y0): 2
+    Enter the value of x at which to evaluate y (x): 0.6
+    Enter the step size (h): 0.2
+    
+    Results:
+     x          y
+    -------------------
+    0.20    2.464200
+    0.40    3.075454
+    0.60    3.866319    
+</textarea>
+            </div>
+        </div>                  
+        <!-- Repeat similar blocks for other questions (question 2, 3, etc.) -->
+
+    </div>
+    <footer>
+        <p>&copy; 2024 My Stylish Website. All rights reserved.</p>
+        <a href="index.html">Back to Home</a>
+    </footer>
+
+    <script>
+        function toggleCode(index) {
+            const codeSections = document.querySelectorAll('.code-output');
+            codeSections.forEach((section, idx) => {
+                section.style.display = idx === index ? 'flex' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>
+
+
+

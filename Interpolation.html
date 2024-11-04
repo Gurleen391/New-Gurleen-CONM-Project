@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interpolation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc; /* Beige background */
+            color: #333333; /* Dark gray text */
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        /* Header and Title */
+        header {
+            background-color: #333333; /* Dark gray background */
+            width: 100%;
+            padding: 1em 0;
+            text-align: center;
+            border-bottom: 3px solid #d9cbb6; /* Light beige border */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+    
+        h1 {
+            font-size: 2.5em;
+            color: #f5f5dc; /* Beige title */
+            margin: 0;
+        }
+    
+        /* Tab Styling */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1px;
+            background-color: #444444; /* Slightly lighter dark gray */
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            color: #f5f5dc; /* Beige text */
+            transition: background-color 0.3s;
+            background-color: #333333;
+        }
+    
+        .tab:hover {
+            background-color: #d9cbb6; /* Light beige hover */
+            color: #333333;
+        }
+    
+        /* Container for Questions and Code Output */
+        .container {
+            display: flex;
+            width: 90%;
+            max-width: 1200px;
+            gap: 20px;
+            margin-top: 20px;
+        }
+    
+        /* Styling for Questions List */
+        .questions {
+            flex: 1;
+            background-color: #333333;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border: 2px solid #d9cbb6;
+        }
+    
+        .questions h2 {
+            color: #f5f5dc;
+            margin-bottom: 15px;
+        }
+    
+        .questions ol {
+            list-style: none;
+            padding-left: 0;
+        }
+    
+        .questions li {
+            font-size: 1.1em;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(217, 203, 182, 0.5); /* Soft beige accent */
+            cursor: pointer;
+            color: #d9cbb6;
+        }
+    
+        .questions li:hover {
+            color: #f5f5dc;
+            font-weight: bold;
+        }
+    
+        /* Code and Output Frame Styling */
+        .code-output {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+            gap: 15px;
+        }
+    
+        .code-frame, .output-frame {
+            background-color: #333333;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #d9cbb6;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+    
+        .code-frame h2, .output-frame h2 {
+            color: #f5f5dc;
+            margin: 0;
+        }
+    
+        textarea {
+            width: 100%;
+            height: 200px;
+            background-color: #444444;
+            color: #f5f5dc;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            resize: none;
+            font-family: 'Courier New', Courier, monospace;
+            outline: none;
+            box-sizing: border-box;
+        }
+    
+        /* Footer */
+        footer {
+            background-color: #333333;
+            color: #f5f5dc;
+            width: 100%;
+            text-align: center;
+            padding: 1em 0;
+            margin-top: 20px;
+            border-top: 2px solid #d9cbb6;
+        }
+    </style>
+    
+</head>
+<body>
+    <header>
+        <h1>Interpolation</h1>
+        <div class="tabs">
+            <div class="tab" onclick="location.href='conversion.html'">Conversion</div>
+            <div class="tab" onclick="location.href='NonLinearEquations.html'">Non-Linear Equations</div>
+            <div class="tab" onclick="location.href='LinearEquations.html'">Linear Equations</div>
+            <div class="tab" onclick="location.href='Interpolation.html'">Interpolation</div>
+            <div class="tab" onclick="location.href='NumericalIntegration.html'">Numerical Integration</div>
+            <div class="tab" onclick="location.href='Approximation.html'">Approximation</div>
+            <div class="tab" onclick="location.href='OrdinaryDifferentialEquations.html'">Ordinary Differential Equations</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="questions">
+            <h2>Questions</h2>
+            <ol>
+                <li onclick="toggleCode(0)">1. WAP to demonstrate Lagrange Interpolation Method</li>
+                <li onclick="toggleCode(1)">2. WAP to demonstrate Inverse Lagrange Interpolation Method</li>
+                <li onclick="toggleCode(2)">3. WAP to demonstrate Newton’s Forward Difference Method</li>
+                <li onclick="toggleCode(3)">4. WAP to demonstrate Newton’s Backward Difference Method</li>
+                <li onclick="toggleCode(4)">5. WAP to demonstrate Newton’s Divided Difference Method</li>
+            </ol>
+        </div>
+
+        <!-- Code outputs for each question -->
+        <div class="code-output" id="code-output-0">
+            <div class="code-frame">
+                <h2>1. Code</h2>
+                <textarea readonly>
+//1. WAP to demonstrate Lagrange Interpolation Method
+#include<stdio.h>
+void main() 
+{
+    float x[100], y[100], xp, yp=0, p;
+    int i,j,n;
+    printf("Enter the value of n : ");
+    scanf("%d", &n);
+    printf("Enter the values of x and y:\n");
+    for(i=1;i<=n;i++) {
+        printf("x[%d] = ", i);
+        scanf("%f", &x[i]);
+        printf("y[%d] = ", i);
+        scanf("%f", &y[i]);
+    }
+    printf("Enter interpolation point(x): ");
+    scanf("%f", &xp);
+    for(i=1;i<=n;i++) {
+        p=1;
+        for(j=1;j<=n;j++) {
+            if(i!=j) {
+                p = p * (xp - x[j])/(x[i] - x[j]);
+            }
+        }
+        yp = yp + p * y[i];
+    }
+    printf("Interpolated value at %.3f is %.3f.", xp, yp);
+}
+                </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+<textarea readonly>
+Enter the value of n : 6
+Enter the values of x and y:
+x[1] = 0
+y[1] = 1
+x[2] = 1
+y[2] = 14
+x[3] = 2
+y[3] = 15
+x[4] = 4
+y[4] = 5
+x[5] = 5
+y[5] = 6
+x[6] = 6
+y[6] = 19
+Enter interpolation point(x): 3
+Interpolated value at 3.000 is 10.000. 
+</textarea>
+            </div>
+        </div>
+        <div class="code-output" id="code-output-0">
+            <div class="code-frame">
+                <h2>2. Code</h2>
+<textarea readonly>
+//2. WAP to demonstrate Inverse Lagrange Interpolation  Method
+#include <stdio.h>
+    double lagrange_inverse_interpolation(double x[], double y[], int n, double yi)
+    {
+        double xi = 0.0;
+        for (int i = 0; i < n; i++)
+        {
+              double term = x[i];
+              for (int j = 0; j < n; j++) 
+              {
+                 if (j != i)
+                 {
+                    term = term * (yi - y[j]) / (y[i] - y[j]);
+                }
+             }
+             xi = xi + term;
+        }
+        
+            return xi;
+    }
+        
+    int main() 
+    {
+         int n;
+        printf("Enter the value of n: ");
+        scanf("%d", &n);
+        
+        double x[n], y[n];
+        printf("Enter the values(x and y):\n");
+        for (int i = 0; i < n; i++) {
+            scanf("%lf %lf", &x[i], &y[i]);
+    }
+        
+         double yi;
+        printf("Enter the interpolation value (y): ");
+        scanf("%lf", &yi);
+        
+        double xi = lagrange_inverse_interpolation(x, y, n, yi);
+        printf("Interpolated value at y = %.2lf is x = %.2lf\n", yi, xi);
+        
+         return 0;
+        }
+</textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+<textarea readonly>
+Enter the value of n: 4
+    Enter the values(x and y):
+    20
+    0.342
+    25
+    0.423
+    30
+    0.500
+    35
+    0.650
+    Enter the interpolation value (y): 0.390
+    Interpolated value at y = 0.39 is x = 22.84      
+</textarea>
+            </div>
+        </div>
+        <div class="code-output" id="code-output-0">
+            <div class="code-frame">
+                <h2>3. Code</h2>
+<textarea readonly>
+//3.WAP to demonstrate Newton’s Forward Difference Method
+#include<stdio.h>
+#include<conio.h>
+#include<math.h>
+    void main()
+        {
+            float h,f,p,d,s;
+            int i,j,n;
+            printf("Enter the value of n (number of terms you want to enter): ");
+            scanf("%d",&n);
+            float x[n],y[n];
+            printf("Enter the elements of x\n");
+           for(i=1;i<=n;i++)
+           {
+               scanf("%f",&x[i]);
+           }
+           printf("Enter the elements of y\n");
+           for(i=1;i<=n;i++)
+           {
+             scanf("%f",&y[i]);
+       
+           }
+           h=x[2]-x[1];
+           printf("Please enter the value of x for which you want to print y: ");
+           scanf("%f",&f);
+           p=1;
+           d=y[1];
+           s=(f-x[1])/h;
+           for(int i=1;i<=n-1;i++)
+           {
+               for(int j=1;j<=(n-i);j++)
+               {
+                   y[j]=y[j+1]-y[j];
+       
+               }
+               p=p*(s-i+1)/i;
+               d=d+p*y[1];
+       
+           }
+           printf("For the value of x(%f) the value of y is %0.4f",f,d);
+        }    
+</textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+<textarea readonly>
+Enter the value of n (number of terms you want to enter): 5
+    Enter the elements of x
+    2.00
+    2.25
+    2.50
+    2.75
+    3.00
+    Enter the elements of y
+    9.00
+    10.06
+    11.25
+    12.56
+    14.00
+    Please enter the value of x for which you want to print y: 2.35
+    For the value of x(2.350000) the value of y is 10.5214
+</textarea>
+            </div>
+        </div>
+        <div class="code-output" id="code-output-0">
+            <div class="code-frame">
+                <h2>4. Code</h2>
+<textarea readonly>
+//4. WAP to demonstrate Newton's Backward Difference Method
+#include<stdio.h>
+#include<conio.h>
+#include<math.h>
+    void main()
+    {
+            float h,f,p,d,s;
+            int i,j,n;
+            printf("Enter the value of n (number of terms you want to enter): ");
+            scanf("%d",&n);
+            float x[n],y[n];
+            printf("Enter the elements of x\n");
+           for(i=1;i<=n;i++)
+           {
+               scanf("%f",&x[i]);
+           }
+           printf("Enter the elements of y\n");
+           for(i=1;i<=n;i++)
+           {
+             scanf("%f",&y[i]);
+       
+           }
+           h=x[2]-x[1];
+           printf("Please enter the value of x for which you want to print y: ");
+           scanf("%f",&f);
+           p=1;
+           d=y[1];
+           s=(f-x[1])/h;
+           for(int i=1;i<=n-1;i++)
+           {
+               for(int j=1;j<=(n-i);j++)
+               {
+                   y[j]=y[j+1]-y[j];
+       
+               }
+               p=p*(s-i+1)/i;
+               d=d+p*y[1];
+       
+           }
+           printf("For the value of x(%f) the value of y is %0.4f",f,d);
+     }
+</textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+<textarea readonly>
+Enter the value of n (number of terms you want to enter): 4
+    Enter the elements of x
+    1
+    2
+    3
+    4
+    Enter the elements of y
+    8
+    21
+    68
+    101
+    Please enter the value of x for which you want to print y: 3.5
+    For the value of x(3.500000) the value of y is 89.2500   
+</textarea>
+            </div>
+        </div>
+        <div class="code-output" id="code-output-0">
+            <div class="code-frame">
+                <h2>5. Code</h2>
+<textarea readonly>
+//5. WAP to demonstrate Newton's Divided Difference Method
+#include<stdio.h>
+#include<conio.h> 
+    void main()
+    {
+        int x[10], y[10], p[10];
+        int k,f,n,i,j=1,f1=1,f2=0;
+            printf("\nEnter the value of n : ");
+            scanf("%d", &n);
+        
+            printf("\nEnter the values of x:\n");
+            for (i=1;i<=n;i++)
+                scanf("%d", &x[i]);
+        
+            printf("\nEnter the values of y :\n");
+            for (i=1;i<=n;i++)
+                scanf("%d", &y[i]);
+        
+            f=y[1];
+            printf("\nEnter the given value of x in f(x) you want to evaluate:\n");
+            scanf("%d", &k);
+        
+            do
+            {
+                for (i=1;i<=n-1;i++)
+                {
+                    p[i] = ((y[i+1]-y[i])/(x[i+j]-x[i]));
+                    y[i]=p[i];
+                }
+                f1=1;
+                for(i=1;i<=j;i++)
+                    {
+                        f1*=(k-x[i]);
+                    }
+                f2+=(y[1]*f1);
+                n--;
+                j++;
+            }
+        
+            while(n!=1);
+            f+=f2;
+            printf("\nf(%d) = %d", k , f);
+            getch();
+    } 
+        
+</textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+<textarea readonly>
+    Enter the value of n : 5
+
+    Enter the values of x:
+    5
+    7
+    11
+    13
+    21
+    
+    Enter the values of y :
+    150
+    392
+    1452
+    2366
+    9702
+    
+    Enter the given value of x in f(x) you want to evaluate:
+    1
+    
+    f(1) = 2          
+</textarea>
+            </div>
+        </div>                             
+        <!-- Repeat similar blocks for other questions (question 2, 3, etc.) -->
+
+    </div>
+    <footer>
+        <p>&copy; 2024 My Stylish Website. All rights reserved.</p>
+        <a href="index.html">Back to Home</a>
+    </footer>
+
+    <script>
+        function toggleCode(index) {
+            const codeSections = document.querySelectorAll('.code-output');
+            codeSections.forEach((section, idx) => {
+                section.style.display = idx === index ? 'flex' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>
